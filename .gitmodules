@@ -34,3 +34,6 @@
 [submodule "wcm2024"]
 	path = wcm2024
 	url = http://github.com/41223152/wcm2024
+[submodule "41223153"]
+	path = 41223153
+	url = https://github.com/41223153/wcm2024.git
