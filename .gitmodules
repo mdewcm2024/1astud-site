@@ -58,3 +58,6 @@
 [submodule "41223150"]
 	path = 41223150
 	url = https://github.com/41223150/wcm2024.git
+[submodule "41223149"]
+	path = 41223149
+	url = https://github.com/otakuyoyo/wcm2024.git
