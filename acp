@@ -3,5 +3,5 @@
 # chmod u+x acp
 # source acp "commit message"
 git add .
-git commit -m "$1"
+git commit -m "$1" --author="$2"
 git push
