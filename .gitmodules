@@ -46,8 +46,6 @@
 [submodule "41223130"]
 	path = 41223130
 	url = https://github.com/joeisme1208/wcm2024.git
-<<<<<<< HEAD
-=======
 [submodule "41223101"]
 	path = 41223101
 	url = https://github.com/yan41223101/wcm2024.git
@@ -57,4 +55,3 @@
 [submodule "41223144"]
 	path = 41223144
 	url = https://github.com/41223144/wcm2024.git
->>>>>>> b900a62716301dfc7afe72e63d7d9d77c4be45d1
