@@ -64,3 +64,9 @@
 [submodule "41223140"]
 	path = 41223140
 	url = https://github.com/41223140/wcm2024.git
+[submodule "41223122"]
+	path = 41223122
+	url = https://github.com/Spirit0224/wcm2024.git
+[submodule "41145405"]
+	path = 41145405
+	url = https://github.com/LINTSH/wcm2024.git
