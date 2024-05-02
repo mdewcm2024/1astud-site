@@ -2,7 +2,7 @@
         <head>
         <title>cmsimde_site</title>
         <meta charset="utf-8">
-<meta property="head" content="H1">
+<meta property="head" content="H2">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -142,57 +142,8 @@ img.add_border {
           </div>
 
         </header>
-    <div id="tipue_search_content">About << <a href='About.html'>Previous</a> <a href='g1.html'>Next</a> >> g1<br /><h1>專案</h1>
-<p>W10 各用戶可以利用 Replit 維護分組倉儲內容.</p>
-<p><a href="https://mdewcm2024.github.io/1astud-site/content/Brython.html?src=https://gist.githubusercontent.com/mdecycu/8ba6fa28317bc7a784d8350e7bc33580/raw/bde21a478f52f831d48a13e997d7965126f950fc/1a_w11_step2.py">列出修課學員的倉儲與網站連結</a></p>
-<p>已知可以從 <a href="https://mdewcm2024.github.io/1astud-site/downloads/1a.txt">https://mdewcm2024.github.io/1astud-site/downloads/1a.txt</a> 取得學員的學號與帳號資料，使用 Brython 可以設法利用 Python 語法對此資料進行處理。</p>
-<p>第一步，先取得資料，然後將每一行內容隔開後，放入數列備用。</p>
-<p>若將下列 Brython 程式碼放入 Gist，然後利用網站的  Brython 頁面，以 src 作為資料網誌的內容，就可以直接在網站上<a href="https://mdewcm2024.github.io/1astud-site/content/Brython.html?src=https://gist.githubusercontent.com/mdecycu/8ba6fa28317bc7a784d8350e7bc33580/raw/b2d664b595b11da83bf8f9a1ab39c774ba5861b6/1a_w10_step1.py">執行第一步程式</a>。</p>
-<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import window, ajax
- 
-def fetch_csv_data():
-  # CSV 檔案網址
-  url = "https://mdewcm2024.github.io/1astud-site/downloads/1a.txt"
- 
-  def on_complete(req):
-    if req.status == 200 or req.status == 0:
-      # 讀取 CSV 檔案內容
-      content = req.text
- 
-      # 依照換行符號拆分資料
-      lines = content.split('\n')
- 
-      # 建立空列表儲存資料
-      data = []
- 
-      # 遍歷每一行資料
-      for line in lines:
-        # 忽略空白行
-        if line.strip() == "":
-          continue
- 
-        # 依照逗號拆分資料
-        items = line.split(',')
- 
-        # 將拆分後的資料加入列表
-        data.append(items)
- 
-      # 印出結果
-      print(data)
-    else:
-      print("Error:", req.text)
- 
-  # 發送 AJAX 請求
-  req = ajax.ajax()
-  req.bind('complete', on_complete)
-  req.open('GET', url, True)
-  req.set_header('content-type', 'application/x-www-form-urlencoded')
-  req.send()
- 
-# 呼叫函式讀取 CSV 資料
-fetch_csv_data()</pre>
-<p></p>
-<br />About << <a href='About.html'>Previous</a> <a href='g1.html'>Next</a> >> g1</div>
+    <div id="tipue_search_content">g5 << <a href='g5.html'>Previous</a> <a href='Brython.html'>Next</a> >> Brython<br /><h1>g7</h1>
+<br />g5 << <a href='g5.html'>Previous</a> <a href='Brython.html'>Next</a> >> Brython</div>
 
     <!-- footer -->
       <div class="container">
