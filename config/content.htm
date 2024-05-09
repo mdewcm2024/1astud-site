@@ -3,7 +3,277 @@
 <p>網站: <a href="https://mdewcm2024.github.io/1astud-site">https://mdewcm2024.github.io/1astud-site</a></p>
 <p>討論區: <a href="https://github.com/mdewcm2024/1astud-site/discussions">https://github.com/mdewcm2024/1astud-site/discussions</a></p>
 <p>所有學員只要透過 Github Classroom 加入 site Team, 就擁有管理此倉儲與網站的權限.</p>
-<h1>專案</h1>
+<h1>AI 對話</h1>
+<p><a href="https://claude.ai/">https://claude.ai/</a> </p>
+<p>針對機械設計工程系的計算機程式, 有關學習程式語言的優先順序, 你會如何建議?</p>
+<p>針對機械設計工程系的學生學習程式語言,我會給予以下建議:</p>
+<p>1. 物件導向程式設計語言 (C++/Java)<br/>這類語言在機械工程領域廣為應用,例如有限元分析、CAD/CAM等軟體都使用這些語言進行開發。學習物件導向程式設計思維,建立良好的程式基礎。</p>
+<p>2. Python<br/>Python程式碼簡潔易學,除了基本程式設計外,也能用於數值分析、資料處理、視覺化等任務,對機械工程師來說是很實用的語言。</p>
+<p>3. MATLAB<br/>MATLAB專門用於工程數值運算、繪圖視覺化,在機械工程領域有廣泛應用。對學生來說較為直覺,是不錯的入門語言選擇。</p>
+<p>4. 其他語言(C、C#、Fortran等)<br/>根據需要再延伸學習其他語言,例如C適合系統程式設計、C#適合Windows應用程式開發、Fortran則常見於傳統工程計算領域。</p>
+<p>5. 網頁開發語言(HTML/CSS/JavaScript)<br/>現在趨勢是將工程模擬、分析結果以網頁形式呈現,所以學習網頁開發語言也是不錯的選擇。</p>
+<p>總的來說,建議先從物件導向程式設計語言、Python或MATLAB入門,奠定紮實基礎後,再依興趣或實際需求擴展學習其他領域語言。程式設計能力對於機械工程師來說是越來越重要的工具。</p>
+<h1>程式執行</h1>
+<p>以下的 html 取自: <a href="https://mde.tw/wcm2024/downloads/brython_on_editor.txt">https://mde.tw/wcm2024/downloads/brython_on_editor.txt</a> </p>
+<hr/>
+<p>這個頁面 demo 如何在同一頁面下納入多個線上 Ace 編輯器與執行按鈕 (<a href="/downloads/practice_html.txt">practice_html.txt</a> 動態頁面超文件).</p>
+<p><a href="/downloads/practice_html.txt">practice_html.txt</a> 動態頁面超文件應該可以在啟動 Brython 時, 設定將 .py 檔案放入 downloads/py 目錄中引用.</p>
+<p>亦即將所有對應的 html 也使用 Brython 產生, 然後寫為 <a href="https://docs.python.org/3/tutorial/classes.html">class</a> 後, 在範例導入時透過 <a href="https://docs.python.org/3/tutorial/classes.html#instance-objects">instance</a> 引用.</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;!-- 啟動 Brython --&gt;
+&lt;script&gt;
+window.onload=function(){
+brython({debug:1, pythonpath:['/static/','./../downloads/py/']});
+}
+&lt;/script&gt;</pre>
+<p>從 1 累加到 100:</p>
+<p><button id="add1to100">1 add to 100</button></p>
+<p>將 iterable 與 iterator <a href="https://home.gamer.com.tw/creationDetail.php?sn=4337438">相關說明</a>, 利用 Brython 與 Ace Editor 整理在這個頁面.</p>
+<!-- 導入 brython 程式庫 -->
+<p>
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+</p>
+<!-- 啟動 Brython -->
+<p>
+<script>
+window.onload=function(){
+brython({debug:1, pythonpath:['/static/','./../downloads/py/']});
+}
+</script>
+</p>
+<p><!-- 導入 FileSaver 與 filereader --></p>
+<p>
+<script src="/static/ace/FileSaver.min.js" type="text/javascript"></script>
+<script src="/static/ace/filereader.js" type="text/javascript"></script>
+</p>
+<p><!-- 導入 ace --></p>
+<p>
+<script src="/static/ace/ace.js" type="text/javascript"></script>
+<script src="/static/ace/ext-language_tools.js" type="text/javascript"></script>
+<script src="/static/ace/mode-python3.js" type="text/javascript"></script>
+<script src="/static/ace/snippets/python.js" type="text/javascript"></script>
+</p>
+<p><!-- 導入 gearUtils-0.9.js Cango 齒輪繪圖程式庫 -->
+<script src="/static/Cango-24v03-min.js"></script>
+<script src="/static/gearUtils-09.js"></script>
+<script src="/static/SVGpathUtils-6v03-min.js"></script>
+<script src="/static/sylvester.js"></script>
+<script src="/static/PrairieDraw.js"></script>
+</p>
+<p><!-- 請注意, 這裡使用 Javascript 將 localStorage["kw_py_src1"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--></p>
+<p>
+<script type="text/javascript">
+function doSave(storage_id, filename){
+    var blob = new Blob([localStorage[storage_id]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById(filename).value
+    saveAs(blob, filename+".py");
+}
+</script>
+</p>
+<p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+# 清除畫布
+def clear_bd1(ev):
+    bd = doc["brython_div1"]
+    bd.clear()
+Ace1 = ace.Editor(editor_id="kw_editor1", console_id="kw_console1", container_id="kw__container1", storage_id="kw_py_src1" )
+# 從 gist 取出程式碼後, 放入 editor 作為 default 程式
+def run1():
+    # 利用 get 取下 src 變數值
+    try:
+        url = doc.query["src"]
+    except:
+        url = "https://gist.githubusercontent.com/mdecourse/0229a8a017091476a79700b8a190f185/raw/c3a6deaf717f8f2739a4b1392a5ab10936e9693a/from_1_add_to_10_1.py"
+    prog = open(url).read()
+
+    # 將程式載入編輯區
+    Ace1.editor.setValue(prog)
+    Ace1.editor.scrollToRow(0)
+    Ace1.editor.gotoLine(0)
+    # 直接執行程式
+    #ns = {'__name__':'__main__'}
+    #exec(prog, ns)
+    # 按下 run 按鈕
+    Ace1.run()
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['kw_run1'].bind('click', Ace1.run)
+doc['kw_show_console1'].bind('click', Ace1.show_console)
+doc['kw_clear_console1'].bind('click', Ace1.clear_console)
+doc['clear_bd1'].bind('click', clear_bd1)
+# 呼叫函式執行
+run1()
+</script>
+</p>
+<p><!-- add 1 to 100 開始 -->
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+# 清除畫布
+def clear_bd1(ev):
+    bd = doc["brython_div1"]
+    bd.clear()
+
+# 利用 ace 中的 Editor 建立 Ace2 物件, 其中的輸入變數分別對應到頁面中的編輯區物件
+Ace2 = ace.Editor(editor_id="kw_editor1", console_id="kw_console1", container_id="kw__container1", storage_id="kw_py_src1" )
+
+add1to100_url = "https://gist.githubusercontent.com/mdecourse/0229a8a017091476a79700b8a190f185/raw/c48e37714f055c3a0027cbfef59e442a6ef659b9/from_1_add_to_100_1.py"
+
+# 從 gist 取得程式碼
+add_src = open(add1to100_url).read()
+def add(ev):
+    Ace2.editor.setValue(add_src)
+    Ace2.editor.scrollToRow(0)
+    Ace2.editor.gotoLine(0)
+    Ace2.run()
+
+# id 為 "add1to100" 的按鈕點按時, 執行 add 方法
+doc["add1to100"].bind('click', add)
+</script>
+</p>
+<p><!-- add 1 to 100 結束--></p>
+<!-- editor1 開始 -->
+<p><!-- 用來顯示程式碼的 editor 區域 --></p>
+<div id="kw_editor1" style="width: 600px; height: 300px;"></div>
+<p><!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --></p>
+<p><!-- 存擋表單開始 --></p>
+<form><label>Filename: <input id="kw_filename" placeholder="input file name" type="text"/>.py</label> <input onclick="doSave('kw_py_src1', 'kw_filename1');" type="submit" value="Save"/></form>
+<p><!-- 存擋表單結束 --></p>
+<p></p>
+<p><!-- 執行與清除按鈕開始 --></p>
+<p><button id="kw_run1">Run</button> <button id="kw_show_console1">Output</button> <button id="kw_clear_console1">清除輸出區</button><button id="clear_bd1">清除繪圖區</button><button onclick="window.location.reload()">Reload</button></p>
+<p><!-- 執行與清除按鈕結束 --></p>
+<p></p>
+<p><!-- 程式執行 ouput 區 --></p>
+<div style="width: 100%; height: 100%;"><textarea autocomplete="off" id="kw_console1"></textarea></div>
+<p><!-- Brython 程式執行的結果, 都以 brython_div1 作為切入位置 --></p>
+<div id="brython_div1"></div>
+<!-- editor1 結束 --><hr/><!-- ########################################## -->
+<p>從 1 累加到 100 part2:</p>
+<p><button id="add1to100part2">1 add to 100</button><button id="cango_three_gears">cango_three_gears</button><button id="bsnake">BSnake</button><button id="aitetris">AI Tetris</button><button id="threejsblock">Rotating Block</button></p>
+<p><!-- 請注意, 這裡使用 Javascript 將 localStorage["kw_py_src2"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--></p>
+<p>
+<script type="text/python3">
+from browser import document as doc
+import ace
+# 清除畫布
+def clear_bd2(ev):
+    bd = doc["brython_div2"]
+    bd.clear()
+Ace3 = ace.Editor(editor_id="kw_editor2", console_id="kw_console2", container_id="kw__container2", storage_id="kw_py_src2" )
+# 從 gist 取出程式碼後, 放入 editor 作為 default 程式
+def run2():
+    # 利用 get 取下 src 變數值
+    try:
+        url = doc.query["src2"]
+    except:
+        url = "https://gist.githubusercontent.com/mdecourse/0229a8a017091476a79700b8a190f185/raw/c3a6deaf717f8f2739a4b1392a5ab10936e9693a/from_1_add_to_10_1.py"
+    prog = open(url).read()
+
+    # 將程式載入編輯區
+    Ace3.editor.setValue(prog)
+    Ace3.editor.scrollToRow(0)
+    Ace3.editor.gotoLine(0)
+    # 直接執行程式
+    #ns = {'__name__':'__main__'}
+    #exec(prog, ns)
+    # 按下 run 按鈕
+    Ace3.run()
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['kw_run2'].bind('click', Ace3.run)
+doc['kw_show_console2'].bind('click', Ace3.show_console)
+doc['kw_clear_console2'].bind('click', Ace3.clear_console)
+doc['clear_bd2'].bind('click', clear_bd2)
+# 呼叫函式執行
+run2()
+</script>
+</p>
+<p><!-- add 1 to 100 part2 開始 -->
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+# 清除畫布
+def clear_bd2(ev):
+    bd = doc["brython_div2"]
+    bd.clear()
+
+# 利用 ace 中的 Editor 建立 Ace2 物件, 其中的輸入變數分別對應到頁面中的編輯區物件
+Ace4 = ace.Editor(editor_id="kw_editor2", console_id="kw_console2", container_id="kw__container2", storage_id="kw_py_src2" )
+
+# 透過 Ace4 以類別建立一個通用的 button2, 可以在多個案例中將 gist 程導入編輯區
+
+class button2:
+    def __init__(self, url):
+        self.url = url
+
+    # 記得加入 event 輸入變數
+    def do(self,ev):
+        Ace4.editor.setValue(open(self.url).read())
+        Ace4.editor.scrollToRow(0)
+        Ace4.editor.gotoLine(0)
+        Ace4.run()
+
+add1to100_url = "https://gist.githubusercontent.com/mdecourse/0229a8a017091476a79700b8a190f185/raw/c48e37714f055c3a0027cbfef59e442a6ef659b9/from_1_add_to_100_1.py"
+
+# 從 gist 取得程式碼
+add_src = open(add1to100_url).read()
+def add2(ev):
+    Ace4.editor.setValue(add_src)
+    Ace4.editor.scrollToRow(0)
+    Ace4.editor.gotoLine(0)
+    Ace4.run()
+
+# id 為 "add1to100part2" 的按鈕點按時, 執行 add 方法
+doc["add1to100part2"].bind('click', add2)
+# 以下為運用 button2 class 的通用 gist 程式導入區
+################################## cango_three_gears start
+cango_three_gears_url = "https://gist.githubusercontent.com/mdecycu/d9082d678096bd58378d6afe2c7fa05d/raw/f7a85d737d6723d5e34c526d5daee990ed92c32b/cango_three_gears_brython_div2.py"
+cango_three_gears = button2(cango_three_gears_url)
+doc["cango_three_gears"].bind("click", cango_three_gears.do)
+################################## cango_three_gears end
+################################## bsnake start
+bsnake_url = "https://gist.githubusercontent.com/mdecycu/d9082d678096bd58378d6afe2c7fa05d/raw/f7a85d737d6723d5e34c526d5daee990ed92c32b/kmol_snakey.py"
+bsnake = button2(bsnake_url)
+doc["bsnake"].bind("click", bsnake.do)
+################################## bsnake end
+################################## aitetris start
+aitetris_url = "https://gist.githubusercontent.com/mdecycu/d9082d678096bd58378d6afe2c7fa05d/raw/f7a85d737d6723d5e34c526d5daee990ed92c32b/pygame_to_brython_tetris_ai.py"
+aitetris = button2(aitetris_url)
+doc["aitetris"].bind("click", aitetris.do)
+################################## aitetris end
+################################## threejsblock start
+threejsblock_url = "https://gist.githubusercontent.com/mdecycu/2c6323eff49b496d1bafd210f3ec9707/raw/df37802f9e8a386b6424f7945af622b1cd0a9ca5/threejs_rotating_block.py"
+threejsblock = button2(threejsblock_url)
+doc["threejsblock"].bind("click", threejsblock.do)
+################################## threejsblock end
+</script>
+</p>
+<p><!-- add 1 to 100 part2 結束--></p>
+<!-- editor2 開始 -->
+<p><!-- 用來顯示程式碼的 editor 區域 --></p>
+<div id="kw_editor2" style="width: 600px; height: 300px;"></div>
+<p><!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --></p>
+<p><!-- 存擋表單開始 --></p>
+<form><label>Filename: <input id="kw_filename2" placeholder="input file name" type="text"/>.py</label> <input onclick="doSave('kw_py_src2', 'kw_filename2');" type="submit" value="Save"/></form>
+<p><!-- 存擋表單結束 --></p>
+<p></p>
+<p><!-- 執行與清除按鈕開始 --></p>
+<p><button id="kw_run2">Run</button> <button id="kw_show_console2">Output</button> <button id="kw_clear_console2">清除輸出區</button><button id="clear_bd2">清除繪圖區</button><button onclick="window.location.reload()">Reload</button></p>
+<p><!-- 執行與清除按鈕結束 --></p>
+<p></p>
+<p><!-- 程式執行 ouput 區 --></p>
+<div style="width: 100%; height: 100%;"><textarea autocomplete="off" id="kw_console2"></textarea></div>
+<p><!-- Brython 程式執行的結果, 都以 brython_div1 作為切入位置 --></p>
+<div id="brython_div2"></div>
+<!-- editor2 結束 --><hr/>
+<p>
+<script src="https://unpkg.com/three@0.144.0/build/three.js" type="text/javascript"></script>
+</p><h1>專案</h1>
 <p>W10 各用戶可以利用 Replit 維護分組倉儲內容.</p>
 <p><a href="https://mdewcm2024.github.io/1astud-site/content/Brython.html?src=https://gist.githubusercontent.com/mdecycu/8ba6fa28317bc7a784d8350e7bc33580/raw/bde21a478f52f831d48a13e997d7965126f950fc/1a_w11_step2.py">列出修課學員的倉儲與網站連結</a></p>
 <p>已知可以從 <a href="https://mdewcm2024.github.io/1astud-site/downloads/1a.txt">https://mdewcm2024.github.io/1astud-site/downloads/1a.txt</a> 取得學員的學號與帳號資料，使用 Brython 可以設法利用 Python 語法對此資料進行處理。</p>
@@ -52,19 +322,20 @@ def fetch_csv_data():
  
 # 呼叫函式讀取 CSV 資料
 fetch_csv_data()</pre>
-<p></p>
-<h2>g1</h2>
+<p></p><h2>g1</h2>
 <p><span style="background-color: #ffff00;">心得</span></p>
 <p><span style="background-color: #ffffff;">41223120:這學期的課程，讓我回想到上學期的計算機程式課，雖些部分能獨立完成，有時候還是需要團隊和合作，所以才需要分組，大家有不同的想法也可以全部提出，說不定會產生出新的火花就能更快的解決問題，還有另外一個辦法，就是詢問chat gpt雖然他的回答很官方，但是真的非常有效的解決問題，這學期也用一個新的東西叫codespaces這個完全吃程式碼的東西，有時照著老師的教學影片打，還是沒有辦法完成，就會問看看同學，也會了解到城市裏面再說甚麼，代表什麼意思，在未來敲程式碼也比較有方向。</span></p>
 <p><span style="background-color: #ffffff;">41223121:</span></p>
 <p><span style="background-color: #ffffff;">41223126:上學期我們已經有學習計算機程式，所以這學期在學這門網際內容管理會覺得相較上學期更知道怎麼去解決問題，遇到問題第一時間會尋求CHATGPT的幫助，如果真的在沒辦法處理我會向同組的組員尋求幫助，但是這種方式也是會遇到瓶頸，像我現在就遇到很大的問題，明明內容都已經放到個人網站上，但是CONVERT之後，我很順利的PUSH之後，卻發現自己的網站內竟然沒有東西，回到網站後，竟然連修改都沒辦法，向同學尋求幫助也無法解決，只能等上課時間向老師尋求協助，當然還學到了一些東西像是:<span>如何將組員個人倉儲加入團隊倉儲的子模組、</span><span>在 replit 自設 .ssh 維護分組倉儲、在 Replit Codespaces 與 Gitpod 執行倉儲的動態與靜態網站、及在replit上設定分組權限，學過的就再次了解，新的東西就好好吸收，就算一時間無法迅速吸收，也可以反覆觀看老師錄的影片，去進行學習，只要反覆不停地去打程式，就算在怎麼困難，也能熟能生巧，老師也說了，要比別人強一定要多做，不能因為失敗就放棄，並且每次的失敗都要做紀錄，你怎麼會知道做失敗的東西就一定沒有用處呢，搞不好會跟威爾鋼一樣出其不意被製造出來。</span></span></p>
 <p><span style="background-color: #ffffff;">41223136:全部學生共協同一個倉儲，一定會遇到更新問題，自己就該去解決這問題，要編輯之前記得都要先git pull一次，不然發生問題，全部學生同時協同一個網站，就像一個團隊一起共同開發網站，讓我們感受到在外界也是一個團隊在處理網站，遇到問題可以詢問google ai studio，可以直接把問題丟上去，或者儲存圖片直接詢問AI，要多善加利用科技的工具，解決問題。<br/></span></p>
-<p><span style="background-color: #ffffff;">41223153:一個網頁並非一個人能獨自完成，在遇到問題時可以跟組員互相討論、交流，並將交流過後的成果和解決方法，上傳在自己的網頁中，組員或自己再遇到類似問題時，可以用來參考，遇到更加艱難的問題時，適時地尋求ChatGPT的幫助，來解決網頁、指令、程式上的問題，最後再集結大家所學，共同創造以及維護，屬於自己組別的網頁，並在網頁上，更新老師給予的專題與題目，解決過程。</span></p><h2>g2</h2>
+<p><span style="background-color: #ffffff;">41223153:一個網頁並非一個人能獨自完成，在遇到問題時可以跟組員互相討論、交流，並將交流過後的成果和解決方法，上傳在自己的網頁中，組員或自己再遇到類似問題時，可以用來參考，遇到更加艱難的問題時，適時地尋求ChatGPT的幫助，來解決網頁、指令、程式上的問題，最後再集結大家所學，共同創造以及維護，屬於自己組別的網頁，並在網頁上，更新老師給予的專題與題目，解決過程。</span></p>
+<h2>g2</h2>
 <p></p>
 <p><span style="background-color: #ffffff;"> </span></p>
 <p>41223104：這門課程其實上學期也有修過一次，但感覺這次的課程內容有稍微不同，但大致上一樣，透過上學期的經驗，在操作及編輯網頁來說顯得更容易了。還記得上學期因為在摸索課程內容，所以學得相當困難、不容易，但多虧有上學期的學習磨練，這學期得以快速掌握課程核心，完成課堂的許多作業。我也漸漸在想，為甚麼要讓我們每次完成課程功課在編輯網頁後都要將自己編輯了甚麼上傳到Replit？我想可能是因為社會上的各個公司都需要利用網頁來介紹自己的公司達到行銷效果，所以公司內部會有網頁編輯員，當他們編輯好網頁時，需要上傳自己編輯的內容，給公司的高管看並且檢查。假如有網頁上的錯誤，修改網頁時，公司裡的網頁工程師也能快速知道錯誤出現在哪裡，然後修正錯誤吧。</p>
-<p>41223152:這次網際內容管理,讓我學習到了更多程式語言,是加深了一年級上學期的東西去更進階,這學期依樣用到github和replit但這次難度真的差很多,分組要做的東西也更多,都是需要透過團隊合作去完成的,所以必須分工合作,安排每個人的工作,這次上課作業也增加許多,有其中重點整理,上面有多的問題,必須自己去網路上找尋答案,到自己的網站去統整,上次上課的內容雖然難度很高,但是老師都會錄製影片,假如上課時分心沒有聽清楚的時候就可以在回顧影片找尋不會的內容,老師讓我們自己架設網站,去把上課內容整理,知道自己每堂課做了甚麼,這樣之後要考研究所就可以當作推甄資料,假如到了業界去上班,就可以給老闆看看,我大學做過的網站,說不定他們公司也需要這種人才,去增加工作的的方便性,可以用在文出處理和產品行銷,都可大大減輕非常多的人力,所以現在的時候必須好好的瞿上課去增加自己的實力,提申自己的價值,才會到重用。</p>
-<h2>g4</h2>
+<p>41223123:<span>這門課跟這學期其實還是有差，但我們用的工具還是差不多，都還是用github與replit在上這門課，還有近端操作，還有類似的地方就在於很注重團隊，更看重小組這種東西，剛上沒幾節課時，組別就已經分好了，還有老師錄的影片也更精細，更能讓學生清楚明瞭操作步驟，而且我覺得這樣真的很方便，現在科技那麼發達，其實根本可以做到不用來學校上課，自己在家，看著老師預錄好的內容，如果真的有問題，寄mail問老師在哪，再親自去詢問問題，這樣感覺也比較有效率，對於這門課，我覺得比微積分，國文等等地都還要重要，因為以後如果要出去就業，我會自己架設網站或者其他的技能，我就比其他人多了一個加分項，就算要繼續讀上去，這些作的內容也當作備審資料的參考，知道了我大一上這門課所做的內容。</span></p>
+<p><span>41223146:在這堂網際內容管理中，我學到了更深入的程式語言，有了一上的經驗後，我更懂得如何有效率的學習它，首先是課堂中認真聽講，因為只要一個閃神，就很容易跟不上進度，再來是透過回家觀看老師錄製的影片複習這樣才能融會貫通，最重要的是不要翹課，而我認為程式語言是我們進入業界很有利的籌碼，所以我認為學習程式語言是很重要的。</span></p>
+<p>41223152:這次網際內容管理,讓我學習到了更多程式語言,是加深了一年級上學期的東西去更進階,這學期依樣用到github和replit但這次難度真的差很多,分組要做的東西也更多,都是需要透過團隊合作去完成的,所以必須分工合作,安排每個人的工作,這次上課作業也增加許多,有其中重點整理,上面有多的問題,必須自己去網路上找尋答案,到自己的網站去統整,上次上課的內容雖然難度很高,但是老師都會錄製影片,假如上課時分心沒有聽清楚的時候就可以在回顧影片找尋不會的內容,老師讓我們自己架設網站,去把上課內容整理,知道自己每堂課做了甚麼,這樣之後要考研究所就可以當作推甄資料,假如到了業界去上班,就可以給老闆看看,我大學做過的網站,說不定他們公司也需要這種人才,去增加工作的的方便性,可以用在文出處理和產品行銷,都可大大減輕非常多的人力,所以現在的時候必須好好的瞿上課去增加自己的實力,提申自己的價值,才會到重用。</p><h2>g4</h2>
 <p>41223118</p>
 <p>最一開始會選修這門課，是因為在上學期的計算機概課程中，了解了未來網路虛擬世界在業界的重要性，雖然我們機械設計應該是繪圖設計和CNC機器加工主要核心，但想想在這些領域和世界的走向，會發現AI ChatGTB這些程式軟體的興起會漸漸變成主流。各行各業都可能會被這些機器取代，而機器怎麼自己執行想做的，也就是寫程式這塊會變成鐵飯碗，相對的這條路走得也會是比較辛苦的，但現在業界裡有哪項高端產業會是不辛苦的，重點在於能否在這門課上找到自己未來出路。</p>
 <p></p>
@@ -87,8 +358,9 @@ fetch_csv_data()</pre>
 <p>41223140 四設計一甲 黃耀韋</p>
 <p>這次的網際內容管理的課程我覺得對我的幫助很大，課程中讓我了解到如何運用github的Codespaces來創建網頁，並編輯網頁。在編輯的時候會遇到衝突的問題，當別人上傳後，版本不是最新的，就會導致衝突而無法上傳，請教同學後，我也學到如何解決衝突的問題，最後成功上傳。老師的網站上面也有老師錄的影片，影片很仔細地講解每一個步驟，看著影片做就會了。</p>
 <p>我覺得程式就是要多練習，打了之後就不會忘記了，再學更深入之後可以架設自己的網頁，在現在的時代，這項技能非常有用，畢竟現在是資訊量爆炸的時代，如何利用網路來傳達訊息非常重要。我覺得我還有很多不熟悉的地方需要更多的練習，才可以使用得更順暢。</p>
-<p><span> </span></p>
-<h2>g5</h2>
+<p></p>
+<p>41223110</p>
+<p><span> </span></p><h2>g5</h2>
 <p><span>心得</span></p>
 <p><span>41223101: 這堂課教會我如何善用github和C語言，這兩個都是可以運用各種不同的方式去完成自己的設計，幾周下來也理解github的歷史和創作人的設計理念，雖然都是由ChatGPT</span><span>，</span><span>回答但也因此熟悉了一點</span><span>，需要團隊合作的部分偏難一點，希望之後遇到的都可以在ChatGPT上解決</span><span>。 </span></p>
 <p>41223106: 從下學期開始以團隊分組方式進行，所以我學到很多關於組別網站的一些知識，例如:如何將組員個人倉儲加入團隊倉儲的子模組、<span>在 replit 自設 .ssh 維護分組倉儲、在 Replit Codespaces 與 Gitpod 執行倉儲的動態與靜態網站、及在replit上設定分組權限，以上。</span></p>
@@ -99,6 +371,8 @@ fetch_csv_data()</pre>
 <p>老師也常說未來是AI及程式語言的天下，就算是學機械也會需要撰寫程式碼來操控CNC，之後就業時也能將個人網站給面試官看，讓自己多一個加分項目，程式語言是躲不掉的，希望自己能在還有老師教的時候把程式弄懂，增加自己的出路。</p>
 <p>41223138 黃彥捷</p>
 <p>心得:這次的網際內容管理讓我們能夠輕鬆地建立、編輯和管理網站上的內容。它提供了一個直觀的用戶界面，讓非技術人員也能夠輕鬆地進行內容更新，而不必依賴開發人員的幫助。這使得內容更新和修改變得更迅速靈活，有助於及時回應用戶需求和市場變化。我們學習如何使用GitHub Codespaces，它允許使用者在瀏覽器中輕鬆地建立和存取開發環境。透過 Codespaces，你可以在 GitHub 上打開一個程式碼倉庫，並在雲端建立一個可用於編寫、調試和執行程式碼的開發環境。這意味著你不需要在本地安裝任何開發工具或相依套件，只需一個連接網際網路的設備即可進行開發工作。這對於團隊合作、新專案的快速啟動以及移動工作環境都非常有用。這次除了學習github codespaces知識外，我還從課程中學會了如何更好地解決問題、分配時間。通過參與課程中的討論、作業和項目，我提高了自己的溝通能力和團隊合作能力。</p>
+<p>41223131 心得:</p>
+<p>經由上學期的計算機概論讓我更了解倉儲的使用，這學期還學會更多有關Python的知識及指令。這次的網際網路管理使用了Github跟以往不同的是只單獨使用這個。用內建的系統去維護及個人網站，不依靠Replit。這次的課程以小組多人維護方式來進行，每個人都有權利改編組別網誌。第一次知道Github能內建改寫網誌，讓我們更省時間不用兩個程式切換，並且能直接在網誌上面進行推上不用再到外部Git上去。這門課總結讓我知道未來網路非常之重要，可利用GPT來解決問題及產生我要圖片也知道倉儲的意義。</p>
 <h2>g8</h2>
 <p>41223129 心得</p>
 <p>這門課程老師教會我們使用各種方式來維護網頁,例如replit,codespaces,進端等等，在維護過程遇到合併衝突，我們會詢問老師和chatgpt來解決問題，也會和組員來進行討論，在日漸增加對git的操作下，我對這種git有稍微熟悉一點感覺，但我對於自己操作程式還有些許不熟。</p>
@@ -114,7 +388,8 @@ fetch_csv_data()</pre>
 <li><strong>使用Replit</strong></li>
 <li><strong>使用靜端操作</strong></li>
 <li><strong>使用CodeSpaces</strong></li>
-</ol><h1>Brython</h1>
+</ol>
+<h1>Brython</h1>
 <p><a href="https://en.wikipedia.org/wiki/Python_(programming_language)">https://en.wikipedia.org/wiki/Python_(programming_language)</a></p>
 <h4>Examples:</h4>
 <p style="padding-left: 30px;"><a href="https://gist.github.com/mdecycu/d9082d678096bd58378d6afe2c7fa05d">https://gist.github.com/mdecycu/d9082d678096bd58378d6afe2c7fa05d</a></p>
